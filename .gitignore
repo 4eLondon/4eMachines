@@ -1,0 +1,10 @@
+# Don't commit build artifacts or local config
+.env
+.DS_Store
+
+# Odin builds (compiled inside the container, may land in mounted code folder)
+*.o
+*.obj
+
+# Any local test scripts
+scratch/
