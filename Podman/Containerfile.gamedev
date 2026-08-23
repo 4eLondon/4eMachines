@@ -1,0 +1,10 @@
+FROM archlinux:latest
+
+RUN pacman -Syu --needed --noconfirm \
+    base bash-completion bat bc diffutils eza fzf git git-delta \
+    glibc-locales inetutils less lsof man-db man-pages neovim openssh \
+    pigz pkgconf rsync sudo time tree unzip vte-common wget wl-clipboard \
+    words xorg-xauth yazi zip zoxide \
+    raylib sdl2_image sdl2_mixer sdl2_ttf mesa vulkan-intel vulkan-radeon
+
+CMD ["/bin/bash"]
