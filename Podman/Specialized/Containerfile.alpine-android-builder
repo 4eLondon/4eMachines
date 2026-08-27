@@ -1,0 +1,90 @@
+FROM docker.io/library/eclipse-temurin:21-jdk-alpine
+
+RUN apk add --no-cache bash git curl unzip wget
+
+ENV ANDROID_HOME=/opt/android-sdk
+ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+
+RUN mkdir -p $ANDROID_HOME/cmdline-tools && \
+    cd /tmp && \
+    wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip && \
+    unzip -q cmdline-tools.zip -d $ANDROID_HOME/cmdline-tools && \
+    mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/latest && \
+    rm cmdline-tools.zip
+
+RUN yes | sdkmanager --licenses > /dev/null && \
+    sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
+
+RUN mkdir -p /opt/info
+
+RUN cat <<'EOF' > /opt/info/OS.md
+# Base OS
+
+Alpine Linux (musl libc, not glibc)
+Base image: eclipse-temurin:21-jdk-alpine
+
+## Included
+- OpenJDK 21
+- bash, git, curl, unzip, wget
+- Android SDK (cmdline-tools, platform-tools, build-tools 34.0.0, platform android-34)
+
+## Notes
+- Alpine uses `apk`, not `apt`/`dnf`.
+- musl libc can occasionally break glibc-only prebuilt binaries; not an issue for standard Android/Gradle builds.
+EOF
+
+RUN cat <<'EOF' > /opt/info/USAGE.md
+# Usage
+
+This container is a build backend, not an interactive dev environment.
+Edit code on the host; use this container only to run Gradle builds.
+
+## Typical workflow
+1. Edit project files on the host under ~/android-projects
+2. Run a build:
+   podman run --rm -v ~/android-projects:/workspace:Z android-dev \
+     bash -c "cd /workspace/<project> && ./gradlew assembleDebug"
+3. Install the resulting APK from the host:
+   adb install ~/android-projects/<project>/app/build/outputs/apk/debug/app-debug.apk
+4. View logs from the host:
+   adb logcat | grep <YourTag>
+
+## Interactive shell (debugging the container itself)
+podman run -it --rm --hostname android-dev -v ~/android-projects:/workspace:Z android-dev bash
+
+## Env vars
+ANDROID_HOME=/opt/android-sdk
+EOF
+
+RUN cat <<'EOF' > /opt/info/PURPOSE.md
+# Purpose
+
+Minimal, disposable Android build environment.
+No IDE, no emulator, no GUI — CLI-only SDK + Gradle toolchain.
+
+## Why it exists
+- Keep the host system uncluttered
+- Reproducible builds: rebuild the image anytime for a clean slate
+- Pairs with a physical Android device (via host adb/scrcpy) for testing,
+  rather than an in-container emulator
+
+## What it excludes
+- Android Studio / any GUI IDE
+- Emulator (AVD) — use a physical device via host adb instead
+- Persistent state — container is meant to be run with --rm
+EOF
+
+RUN cat <<'EOF' > /root/.bashrc
+if [ -n "$PS1" ]; then
+  echo ""
+  echo "== android-dev container =="
+  echo "Purpose : $(head -n1 /opt/info/PURPOSE.md | sed 's/# //')"
+  echo "Docs    : /opt/info/OS.md /opt/info/USAGE.md /opt/info/PURPOSE.md"
+  echo "Quick   : cat /opt/info/USAGE.md"
+  echo ""
+fi
+EOF
+
+ENV ENV=/root/.bashrc
+
+WORKDIR /workspace
