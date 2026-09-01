@@ -1,24 +1,14 @@
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({ "git", "clone", "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git", lazypath })
-end
-vim.opt.rtp:prepend(lazypath)
-
 -- Basic options
 vim.opt.number = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.termguicolors = false
-
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
     callback = function()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
-        -- Map syntax groups to terminal ANSI slots (0-15)
         vim.api.nvim_set_hl(0, "@comment", { ctermfg = 8 })
         vim.api.nvim_set_hl(0, "@string", { ctermfg = 2 })
         vim.api.nvim_set_hl(0, "@function", { ctermfg = 4 })
@@ -29,7 +19,6 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "@number", { ctermfg = 6 })
     end,
 })
-
 -- Wrapping
 vim.opt.wrap = true
 vim.opt.linebreak = true
@@ -37,7 +26,6 @@ vim.opt.textwidth = 0
 vim.opt.showbreak = "↪ "
 vim.opt.breakindent = true
 vim.opt.breakindentopt = "shift:2"
-
 -- Folds
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
@@ -49,7 +37,6 @@ vim.opt.fillchars = {
     foldclose = "▸",
     foldsep = "│",
 }
-
 -- Transparent background
 vim.api.nvim_create_autocmd("ColorScheme", {
     pattern = "*",
@@ -60,15 +47,12 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
-
 -- Persistent undo history
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo"
 vim.opt.undolevels = 10000
-
 -- Clipboard
 vim.opt.clipboard = "unnamedplus"
-
 -- Restore cursor position on open
 vim.api.nvim_create_autocmd("BufReadPost", {
     desc = "Return to last cursor position when reopening a file",
@@ -81,7 +65,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
         end
     end,
 })
-
 -- Auto format on save, guarded
 vim.api.nvim_create_autocmd("BufWritePre", {
     callback = function()
@@ -91,18 +74,57 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
--- Plugins
-require("lazy").setup({
-    -- Auto close brackets
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        config = function()
-            require("nvim-autopairs").setup({})
-        end,
-    },
+-- Minimal built-in autopairs (no plugin manager, no git dependency)
+do
+    local pairs_map = {
+        ["("] = ")",
+        ["["] = "]",
+        ["{"] = "}",
+        ['"'] = '"',
+        ["'"] = "'",
+    }
+    local closers = { [")"] = true, ["]"] = true, ["}"] = true, ['"'] = true, ["'"] = true }
 
-})
+    for open, close in pairs(pairs_map) do
+        vim.keymap.set("i", open, function()
+            return open .. close .. "<Left>"
+        end, { expr = true })
+    end
+
+    for close, _ in pairs(closers) do
+        vim.keymap.set("i", close, function()
+            local col = vim.fn.col(".")
+            local line = vim.fn.getline(".")
+            local next_char = line:sub(col, col)
+            if next_char == close then
+                return "<Right>"
+            end
+            return close
+        end, { expr = true })
+    end
+
+    vim.keymap.set("i", "<BS>", function()
+        local col = vim.fn.col(".")
+        local line = vim.fn.getline(".")
+        local prev_char = line:sub(col - 1, col - 1)
+        local next_char = line:sub(col, col)
+        if pairs_map[prev_char] == next_char then
+            return "<BS><Del>"
+        end
+        return "<BS>"
+    end, { expr = true })
+
+    vim.keymap.set("i", "<CR>", function()
+        local col = vim.fn.col(".")
+        local line = vim.fn.getline(".")
+        local prev_char = line:sub(col - 1, col - 1)
+        local next_char = line:sub(col, col)
+        if pairs_map[prev_char] == next_char then
+            return "<CR><Esc>O"
+        end
+        return "<CR>"
+    end, { expr = true })
+end
 
 -- Diagnostics
 vim.diagnostic.config({
@@ -115,13 +137,11 @@ vim.diagnostic.config({
         source = true,
     },
 })
-
 -- Keymaps
 vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-
 vim.keymap.set("v", "<C-c>", '"+y')
 vim.keymap.set("n", "<C-a>", "ggVG")
 vim.keymap.set("v", "<C-a>", "<Esc>ggVG")
