@@ -225,7 +225,7 @@ xdg-mime default nemo.desktop inode/directory
 xdg-settings set default-web-browser firefox.desktop 2>/dev/null
 xdg-mime default imv.desktop image/png image/jpeg image/gif image/webp
 xdg-mime default mpv.desktop video/mp4 video/x-matroska video/webm audio/mpeg audio/flac
-Lecho -e "\n+ + [ Done ] + + \n"
+echo -e "\n+ + [ Done ] + + \n"
 
 
 
