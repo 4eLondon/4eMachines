@@ -1,0 +1,6 @@
+{"timestamp":11488174,"category":"bounce.tracking.protection","name":"purge_action","extra":{"bounce_time":"1788759869","glean_timestamp":"1788772610592","is_dry_run":"true","success":"true","site_host":"darkreader.org"}}
+{"timestamp":11488183,"category":"bounce.tracking.protection","name":"purge_action","extra":{"site_host":"webextension.org","bounce_time":"1788760511","is_dry_run":"true","success":"true","glean_timestamp":"1788772610593"}}
+{"timestamp":11488183,"category":"bounce.tracking.protection","name":"purge_action","extra":{"is_dry_run":"true","bounce_time":"1788760465","success":"true","glean_timestamp":"1788772610593","site_host":"getvideohunter.com"}}
+{"timestamp":11488183,"category":"bounce.tracking.protection","name":"purge_action","extra":{"success":"true","bounce_time":"1788766566","is_dry_run":"true","site_host":"x.com","glean_timestamp":"1788772610594"}}
+{"timestamp":11488183,"category":"bounce.tracking.protection","name":"purge_action","extra":{"bounce_time":"1788764751","is_dry_run":"true","glean_timestamp":"1788772610594","success":"true","site_host":"pemsrv.com"}}
+{"timestamp":11488183,"category":"bounce.tracking.protection","name":"purge_action","extra":{"success":"true","bounce_time":"1788760327","is_dry_run":"true","glean_timestamp":"1788772610594","site_host":"jucika.com"}}

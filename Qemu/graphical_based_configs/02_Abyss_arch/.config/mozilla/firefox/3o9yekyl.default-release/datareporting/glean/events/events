@@ -1,0 +1,10 @@
+{"timestamp":12537900,"category":"tab","name":"interaction","extra":{"action":"close","source":"tab_strip","layout":"horizontal","tab_count":"1","glean_timestamp":"1788773660310"}}
+{"timestamp":12496223,"category":"pictureinpicture","name":"saw_toggle_toggle","extra":{"glean_timestamp":"1788773660568","firstTime":"true"}}
+{"timestamp":12523446,"category":"pictureinpicture","name":"saw_toggle_toggle","extra":{"firstTime":"true","glean_timestamp":"1788773660568"}}
+{"timestamp":12546662,"category":"tab","name":"interaction","extra":{"tab_count":"1","layout":"horizontal","source":"tab_strip","glean_timestamp":"1788773669072","action":"close"}}
+{"timestamp":12554300,"category":"tab","name":"interaction","extra":{"source":"tab_strip","tab_count":"1","action":"close","glean_timestamp":"1788773676710","layout":"horizontal"}}
+{"timestamp":12565075,"category":"tab","name":"interaction","extra":{"layout":"horizontal","tab_count":"1","action":"close","glean_timestamp":"1788773687485","source":"tab_strip"}}
+{"timestamp":12572287,"category":"tab","name":"interaction","extra":{"layout":"horizontal","glean_timestamp":"1788773694697","action":"close","source":"tab_strip","tab_count":"1"}}
+{"timestamp":12576933,"category":"tab","name":"interaction","extra":{"layout":"horizontal","source":"tab_strip","action":"close","glean_timestamp":"1788773699343","tab_count":"1"}}
+{"timestamp":12588715,"category":"tab","name":"interaction","extra":{"action":"close","source":"tab_strip","tab_count":"1","layout":"horizontal","glean_timestamp":"1788773711126"}}
+{"timestamp":12595004,"category":"doh","name":"state_shutdown","extra":{"value":"null","glean_timestamp":"1788773717414"}}

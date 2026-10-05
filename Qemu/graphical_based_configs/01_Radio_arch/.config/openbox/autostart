@@ -1,0 +1,3 @@
+xmodmap "/home/user/.Xmodmap" &
+feh --bg-fill ~/Pictures/Wallpapers/w3.jpg &
+tint2 &

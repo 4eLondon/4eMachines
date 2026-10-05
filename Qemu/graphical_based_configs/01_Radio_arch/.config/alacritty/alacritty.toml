@@ -1,0 +1,63 @@
+[window]
+padding = { x = 6, y = 6 }
+decorations = "full"
+opacity = 1.0
+dynamic_title = true
+
+[font]
+size = 12.0
+
+[font.normal]
+family = "ProFontWindowsNerdFontMono"
+style = "Regular"
+
+[font.bold]
+family = "ProFontWindowsNerdFontMono"
+style = "Bold"
+
+[font.italic]
+family = "ProFontWindowsNerdFontMono"
+style = "Oblique"
+
+[cursor]
+style = { shape = "Block", blinking = "Off" }
+unfocused_hollow = true
+
+[colors.primary]
+background = "#000000"
+foreground = "#c0c0c0"
+
+[colors.cursor]
+text = "#000000"
+cursor = "#c0c0c0"
+
+[colors.selection]
+text = "#ffffff"
+background = "#000080"
+
+[colors.normal]
+black = "#000000"
+red = "#800000"
+green = "#008000"
+yellow = "#808000"
+blue = "#000080"
+magenta = "#800080"
+cyan = "#008080"
+white = "#c0c0c0"
+
+[colors.bright]
+black = "#808080"
+red = "#ff0000"
+green = "#00ff00"
+yellow = "#ffff00"
+blue = "#0000ff"
+magenta = "#ff00ff"
+cyan = "#00ffff"
+white = "#ffffff"
+
+[bell]
+animation = "EaseOutExpo"
+duration = 0
+
+[terminal]
+osc52 = "CopyPaste"

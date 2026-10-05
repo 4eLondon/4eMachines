@@ -1,0 +1,33 @@
+[Default Applications]
+# Images
+image/png=mpv.desktop
+image/jpeg=mpv.desktop
+image/gif=mpv.desktop
+image/webp=mpv.desktop
+image/bmp=mpv.desktop
+image/svg+xml=mpv.desktop
+
+# Video
+video/mp4=mpv.desktop
+video/x-matroska=mpv.desktop
+video/webm=mpv.desktop
+video/x-msvideo=mpv.desktop
+
+# Audio
+audio/mpeg=mpv.desktop
+audio/flac=mpv.desktop
+audio/ogg=mpv.desktop
+audio/wav=mpv.desktop
+
+# Text
+text/plain=nvim.desktop
+text/markdown=nvim.desktop
+
+# Web
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/mailto=firefox.desktop
+
+# Directories
+inode/directory=yazi.desktop
+
