@@ -22,8 +22,8 @@ A single script, `master_setup.sh`, turns a fresh Arch install into the full mac
 | Preview |
 | :---: |
 | <img src="01_Radio_a.png" alt="Outer01_a" width="800"> |
-| <img src="01_Radio01_b.png" alt="Outer01_b" width="800"> |
-| <img src="01_Radio01_c.png" alt="Outer01_c" width="800"> |
+| <img src="01_Radio_b.png" alt="Outer01_b" width="800"> |
+| <img src="01_Radio_c.png" alt="Outer01_c" width="800"> |
 
 ---
 
