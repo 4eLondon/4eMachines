@@ -1,0 +1,42 @@
+alt + q
+   alacritty
+alt + c
+    bspc node -c
+alt + {1-9}
+    bspc desktop -f '^{1-9}'
+alt + Escape
+    bspc quit
+alt + l
+    bspc node -z left -20 0
+alt + h
+    bspc node -z right 20 0
+alt + b
+    firefox
+alt + shift + b
+	firefox --private-window
+alt + e
+    pcmanfm
+
+alt + {_,ctrl + }{Left,Down,Up,Right}
+ bspc node -{f,s} {west,south,north,east}
+
+alt + shift + {1-9,0}
+ bspc node -d '^{1-9,10}'
+
+alt + {shift+t,shift + f,f,t}
+ bspc node -t {pseudo_tiled,~floating,~fullscreen,~tiled}
+
+alt + f
+    bspc node -s "$(bspc query -N -d focused -n biggest.!focused)"
+
+alt + R
+ pkill -USR1 -x sxhkd; \
+ bspc wm -r; \
+ pkill -x picom; picom &
+
+alt + P
+    maim ~/Pictures/screenshots/full_$(date +%Y-%m-%d_%H-%M-%S).png
+alt + ctrl + P
+    maim -i $(xdotool getactivewindow) ~/Pictures/screenshots/window_$(date +%Y-%m-%d_%H-%M-%S).png
+alt + shift + P
+    maim -s ~/Pictures/screenshots/area_$(date +%Y-%m-%d_%H-%M-%S).png
